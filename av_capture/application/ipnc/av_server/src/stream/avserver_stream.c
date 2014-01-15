@@ -149,7 +149,7 @@ int VIDEO_streamShmCopy(int streamId, OSA_BufInfo *pBufInfo)
        );
    }
 
-#if 1
+#if 0
     if (streamId == 0)
     {
         static int lasttime = 0;
@@ -178,6 +178,35 @@ int VIDEO_streamShmCopy(int streamId, OSA_BufInfo *pBufInfo)
             timeinterval);
         }
     }
+#endif
+
+#if 1
+if (streamId == 0)
+{    
+    static int j = 0;
+    if (j>=0 && j<=500)
+    {
+        FILE *fp = fopen("/tmp/h264.txt", "ab+");
+
+        if (frameType == 1)
+        {
+            fprintf(fp, "\n\nj=%d size = %d isKeyFrame ###################\n", j, pInBufHeader->encFrameSize);
+        }
+        else
+        {
+            fprintf(fp, "\nj=%d size = %d-----------------------\n", j, pInBufHeader->encFrameSize);
+        }
+
+        int i =0;
+        for(i=0;i<pInBufHeader->encFrameSize;i++)
+        {
+            char *addr = (char *)(pBufInfo->virtAddr + VIDEO_BUF_HEADER_SIZE);
+            fprintf(fp, "%02x", addr[i]);
+        }
+        fclose(fp);
+    }
+    j++;
+}
 #endif
 
     return status;
