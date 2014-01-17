@@ -180,11 +180,11 @@ int VIDEO_streamShmCopy(int streamId, OSA_BufInfo *pBufInfo)
     }
 #endif
 
-#if 1
+#if 0
 if (streamId == 0)
 {    
     static int j = 0;
-    if (j>=0 && j<=500)
+    if (j>=0 && j<=300)
     {
         FILE *fp = fopen("/tmp/h264.txt", "ab+");
 
